@@ -12,29 +12,22 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  fetchUser(): Observable<any[]> {
-    return this.http.get<any[]>(this.URL);
+  fetchUser(): Observable<any> {
+    return this.http.get<any>(`${this.URL}/usuarios`); // Ruta para obtener los usuarios simulados
   }
-
   fetchUserById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.URL}${id}`); // Obtener un solo usuario por ID
+    return this.http.get<any>(`${this.URL}/usuarios/${id}`); // Ruta para obtener un usuario por ID simulado
   }
-
   postUser(user: any): Observable<any> {
-    return this.http.post<any>(this.URL, user); 
+    return this.http.post<any>(`${this.URL}/usuarios`, user); // Ruta para crear usuarios simulados
   }
-
-
-  /*updateUser(id_original: string, usuario: any) {
-    return this.http.put(`${this.URL}${id_original}`, usuario);
-  }*/
-
-  updateUser(id_original: string, usuario: any) {
-    console.log('Datos a enviar para actualización:', usuario);
-    return this.http.put(`${this.URL}${id_original}`, usuario);
-}
-
-  deleteUser(id_usuario: string): Observable<any> {
-    return this.http.delete<any>(`${this.URL}${id_usuario}`); // Especifica el tipo de retorno
+  
+  updateUser(id: string, user: any): Observable<any> {
+    return this.http.put<any>(`${this.URL}/usuarios/${id}`, user); // Ruta para actualizar usuarios simulados
   }
+  
+  deleteUser(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.URL}/usuarios/${id}`); // Ruta para eliminar usuarios simulados
+  }
+  
 }

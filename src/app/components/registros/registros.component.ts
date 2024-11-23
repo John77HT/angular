@@ -23,33 +23,50 @@ export class RegistrosComponent implements OnInit {
 
   obtenerUsuarios() {
     this.usuarioService.fetchUser().subscribe(
-      (res: any[]) => {
-        this.usuarios = res;
+      (res) => {
+        console.log('Respuesta del backend:', res.message); // Muestra el mensaje simulado
+        this.usuarios = []; // Mantén la lista vacía o usa datos simulados
       },
       (err) => {
         console.error('Error al obtener usuarios:', err);
       }
     );
   }
+  
 
   editarUsuario(id_usuario: string) {
-    this.router.navigate(['/editar-usuario', id_usuario]); // Redirige a la ruta con el id_usuario
-  }
-
-  eliminarUsuario(id_usuario: string) {
-    console.log(`Eliminando usuario con ID: ${id_usuario}`);
-    this.usuarioService.deleteUser(id_usuario).subscribe(
+    this.usuarioService.updateUser(id_usuario, {}).subscribe(
       (res) => {
-        console.log('Usuario eliminado:', res);
-        this.obtenerUsuarios(); // Actualiza la lista después de eliminar
+        console.log('Respuesta del backend:', res.message); // Muestra el mensaje simulado
       },
       (err) => {
-        console.error('Error al eliminar el usuario:', err);
+        console.error('Error al actualizar usuario:', err);
       }
     );
   }
+  
+
+  eliminarUsuario(id_usuario: string) {
+    this.usuarioService.deleteUser(id_usuario).subscribe(
+      (res) => {
+        console.log('Respuesta del backend:', res.message); // Muestra el mensaje simulado
+      },
+      (err) => {
+        console.error('Error al eliminar usuario:', err);
+      }
+    );
+  }
+  
 
   irANuevoUsuario() {
-    this.router.navigate(['/nuevousuario']);
+    this.usuarioService.postUser({}).subscribe(
+      (res) => {
+        console.log('Respuesta del backend:', res.message); // Muestra el mensaje simulado
+      },
+      (err) => {
+        console.error('Error al crear usuario:', err);
+      }
+    );
   }
+  
 }

@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./editar-ciudad.component.css']
 })
 export class EditarCiudadComponent implements OnInit {
-  ciudad: any = { id_ciudad: '' }; // Objeto para el usuario a editar
+  ciudad: any = { id_ciudad: '' }; // Objeto para la ciudad a editar
   originalIdciudad: string = ''; // Para almacenar el ID original antes de editar
 
   constructor(
@@ -22,7 +22,7 @@ export class EditarCiudadComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.obtenerCiudad(); // Llama a obtenerUsuario al inicializar el componente
+    this.obtenerCiudad(); // Llama a obtenerCiudad al inicializar el componente
   }
 
   obtenerCiudad() {
@@ -31,32 +31,30 @@ export class EditarCiudadComponent implements OnInit {
       this.originalIdciudad = id_ciudad; // Almacena el ID original
       this.ciudadService.fetchCiudadById(id_ciudad).subscribe(
         (res) => {
-          this.ciudad = res; // Asigna el objeto usuario directamente
+          this.ciudad = res; // Asigna el objeto ciudad directamente
         },
         (err) => {
-          console.error('Error al obtener el usuario:', err);
+          console.error('Error al obtener la ciudad:', err);
         }
       );
     }
   }
 
   actualizarCiudad() {
-    const id_original = this.ciudad.id_ciudad; // Obtén el ID del usuario que deseas actualizar
-    const ciudadActualizado = {
-      nombre: this.ciudad.nombre,
-      
+    const id_original = this.ciudad.id_ciudad; // Obtén el ID de la ciudad que deseas actualizar
+    const ciudadActualizada = {
+      nombre: this.ciudad.nombre,  // Actualiza el nombre de la ciudad (agrega más campos si es necesario)
     };
 
-    console.log('Actualizando ciudad:', ciudadActualizado);
-    this.ciudadService.updateCiudad(id_original, ciudadActualizado).subscribe(
+    console.log('Actualizando ciudad:', ciudadActualizada);
+    this.ciudadService.updateCiudad(id_original, ciudadActualizada).subscribe(
       (res) => {
         console.log('Ciudad actualizada:', res);
-        this.router.navigate(['/ciudad']); // Redirige a la lista de registros
+        this.router.navigate(['/ciudad']); // Redirige a la lista de ciudades
       },
       (err) => {
-        console.error('Error al actualizar ciudad:', err);
+        console.error('Error al actualizar la ciudad:', err);
       }
     );
   }
 }
-

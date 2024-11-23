@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 //import {UsersComponent} from './components/users/users.component' ;
-import { LoginComponent } from './components/login/login.component';
+
 import { UsersComponent } from './components/users/users.component';
 import { ContenidoComponent } from './components/contenido/contenido.component';
 import { RegistrosComponent } from './components/registros/registros.component';
@@ -13,7 +13,7 @@ import { EditarCiudadComponent } from './components/editar-ciudad/editar-ciudad.
 
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent },
+    
     { path: 'usuario', component: UsersComponent },
     { path: 'contenido', component: ContenidoComponent },
     { path: 'registros', component: RegistrosComponent },
@@ -21,12 +21,12 @@ export const routes: Routes = [
     { path: 'nuevaciudad', component: NuevaciudadComponent },
     { path: 'editarusuario', component: EditarUsuarioComponent },
     { path: 'editar-usuario/:id_usuario', component: EditarUsuarioComponent }, // Ruta con parámetro
-    { path: '', redirectTo: '/registros', pathMatch: 'full' },
+    //{ path: '', redirectTo: '/registros', pathMatch: 'full' },
 
     { path: 'ciudad', component: CiudadComponent },
     { path: 'editarciudad', component: EditarCiudadComponent },
     { path: 'editar-ciudad/:id_ciudad', component: EditarCiudadComponent }, // Ruta con parámetro
-    { path: '', redirectTo: '/ciudad', pathMatch: 'full' },
+    //{ path: '', redirectTo: '/ciudad', pathMatch: 'full' },
 
 
     

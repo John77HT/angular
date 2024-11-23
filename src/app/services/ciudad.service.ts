@@ -6,35 +6,38 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CiudadService {
+  // URL del backend para simulación
+  URL = 'https://back-6s9j.onrender.com/ciudades'; // Ajusta el endpoint según tu configuración
 
-  //URL = 'http://localhost:3000/api/ciudad/';
-  URL = 'https://back-6s9j.onrender.com'
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  fetchCiudad(): Observable<any[]> {
-    return this.http.get<any[]>(this.URL);
+  // Obtener todas las ciudades
+  fetchCiudad(): Observable<any> {
+    return this.http.get<any>(this.URL); // Simula la obtención de datos
   }
 
   fetchCiudadById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.URL}${id}`); // Obtener un solo usuario por ID
+    console.log('Obteniendo ciudad con ID:', id);
+    return this.http.get<any>(`${this.URL}/${id}`); // Obtiene la ciudad con el ID proporcionado
   }
 
-  postCiudad(user: any): Observable<any> {
-    return this.http.post<any>(this.URL, user); // Especifica el tipo de retorno
+  
+
+  // Crear una nueva ciudad
+  postCiudad(ciudad: any): Observable<any> {
+    console.log('Creando nueva ciudad simulada:', ciudad);
+    return this.http.post<any>(this.URL, ciudad); // Simula la creación
   }
 
-
-  /*updateUser(id_original: string, usuario: any) {
-    return this.http.put(`${this.URL}${id_original}`, usuario);
-  }*/
-
-  updateCiudad(id_original: string, ciudad: any) {
-    console.log('Datos a enviar para actualización:', ciudad);
-    return this.http.put(`${this.URL}${id_original}`, ciudad);
+  // Actualizar una ciudad
+  updateCiudad(id: string, ciudad: any): Observable<any> {
+    console.log('Actualizando ciudad simulada con ID:', id, 'Datos:', ciudad);
+    return this.http.put<any>(`${this.URL}/${id}`, ciudad); // Simula la actualización
   }
 
-  deleteCiudad(id_ciudad: string): Observable<any> {
-    return this.http.delete<any>(`${this.URL}${id_ciudad}`); // Especifica el tipo de retorno
+  // Eliminar una ciudad
+  deleteCiudad(id: string): Observable<any> {
+    console.log('Eliminando ciudad simulada con ID:', id);
+    return this.http.delete<any>(`${this.URL}/${id}`); // Simula la eliminación
   }
 }

@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class EditarUsuarioComponent implements OnInit {
   usuario: any = { id_usuario: '' }; // Objeto para el usuario a editar
   originalIdUsuario: string = ''; // Para almacenar el ID original antes de editar
+  mensaje: string = ''; // Para mostrar el mensaje de respuesta del backend
 
   constructor(
     private usuarioService: UsuarioService,
@@ -31,7 +32,8 @@ export class EditarUsuarioComponent implements OnInit {
       this.originalIdUsuario = id_usuario; // Almacena el ID original
       this.usuarioService.fetchUserById(id_usuario).subscribe(
         (res) => {
-          this.usuario = res; // Asigna el objeto usuario directamente
+          this.mensaje = res.message; // Muestra el mensaje de simulación
+          console.log('Respuesta del backend:', res);
         },
         (err) => {
           console.error('Error al obtener el usuario:', err);
@@ -41,23 +43,13 @@ export class EditarUsuarioComponent implements OnInit {
   }
 
   actualizarUsuario() {
-    const id_original = this.usuario.id_usuario; // Obtén el ID del usuario que deseas actualizar
-    const usuarioActualizado = {
-      nombre: this.usuario.nombre,
-      apellido: this.usuario.apellido,
-      contra: this.usuario.contra,
-      direccion: this.usuario.direccion,
-      email: this.usuario.email,
-      genero: this.usuario.genero,
-      id_ciudad: this.usuario.id_ciudad,
-      id_tipo: this.usuario.id_tipo,
-      telefono: this.usuario.telefono
-    };
+    const usuarioActualizado = { ...this.usuario }; // Copia del objeto usuario para simular la actualización
 
-    console.log('Actualizando usuario:', usuarioActualizado);
-    this.usuarioService.updateUser(id_original, usuarioActualizado).subscribe(
+    console.log('Intentando actualizar usuario:', usuarioActualizado);
+    this.usuarioService.updateUser(this.originalIdUsuario, usuarioActualizado).subscribe(
       (res) => {
-        console.log('Usuario actualizado:', res);
+        this.mensaje = res.message; // Muestra el mensaje del backend
+        console.log('Respuesta del backend:', res);
         this.router.navigate(['/registros']); // Redirige a la lista de registros
       },
       (err) => {
@@ -66,4 +58,3 @@ export class EditarUsuarioComponent implements OnInit {
     );
   }
 }
-
